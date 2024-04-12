@@ -1,3 +1,3 @@
 export const test = (req, res) => {
-  message: "Hello World";
+  res.json({ message: "API router is working" });
 };

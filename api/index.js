@@ -15,4 +15,4 @@ app.listen(3000, () => {
   console.log("app is listening to the port 300 !!!");
 });
 
-app.use("api/user", userRouter);
+app.use("/api/user", userRouter);
