@@ -6,9 +6,12 @@ import {
   signInFailure,
 } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-function SignIp() {
+import OAuth from "../components/OAuth";
+
+function SignIn() {
   const [formData, setFormData] = useState({});
   const { loading, error } = useSelector((state) => state.user);
+  console.log("Inside SignIn error", error);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleChange = (e) => {
@@ -36,6 +39,7 @@ function SignIp() {
       dispatch(signInFailure(err.message));
     }
   };
+  console.log("error", error, "loading", loading);
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl text-center font-semibold my-7">Sign In</h1>
@@ -58,17 +62,18 @@ function SignIp() {
           disabled={loading}
           className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
         >
-          {loading ? "Loading..." : "Sign In"}
+          {loading ? "Loading..." : "Sign Up"}
         </button>
+        <OAuth />
       </form>
       <div>
         <p>Dont Have an account ? </p>
         <Link to={"/sign-up"}>
-          <span className="text-blue-700">Sign Un</span>
+          <span className="text-blue-700">Sign Up</span>
         </Link>
       </div>
       {error && <p className="text-red-500 mt-5">{error}</p>}
     </div>
   );
 }
-export default SignIp;
+export default SignIn;
