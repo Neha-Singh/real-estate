@@ -37,11 +37,10 @@ export const google = async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-      const { password: pass, ...rest } = user._doc;
-      res
-        .cookie("access_token", token, { httponly: true })
-        .status(200)
-        .json(rest);
+      const { password: pass, ...rest } = user._doc; // removing password feild from user
+      res.cookie("access_token", token, { httponly: true });
+      res.status(200);
+      res.json(rest);
     } else {
       const generatedPassword =
         Math.random().toString(36).slice(-8) +
@@ -55,10 +54,9 @@ export const google = async (req, res, next) => {
       await newUser.save();
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
       const { password: pass, ...rest } = newUser._doc;
-      res
-        .cookie("access_token", token, { httponly: true })
-        .status(200)
-        .json(rest);
+      res.cookie("access_token", token, { httponly: true });
+      res.status(200);
+      res.json(rest);
     }
   } catch (err) {
     next(err);
