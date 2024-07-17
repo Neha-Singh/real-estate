@@ -10,8 +10,9 @@ import OAuth from "../components/OAuth";
 
 function SignIn() {
   const [formData, setFormData] = useState({});
-  const { loading, error } = useSelector((state) => state.user);
-  console.log("Inside SignIn error", error);
+  const loading = useSelector((state) => state.loading);
+  const error = useSelector((state) => state.error);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleChange = (e) => {
@@ -39,7 +40,6 @@ function SignIn() {
       dispatch(signInFailure(err.message));
     }
   };
-  console.log("error", error, "loading", loading);
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl text-center font-semibold my-7">Sign In</h1>
